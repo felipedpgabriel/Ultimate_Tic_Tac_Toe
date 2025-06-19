@@ -93,12 +93,7 @@ class TicTacToe:
         # TODO: identificar velha antes de preencher as casas. Modifica o atributo __result
         # TODO: Cuidar para não finalizar o jogo -> no Ultimate faz sentido jogar com velha -> menos no caso de velha geral
 
-        if self.__board.is_board_full():
-
-            self.__result = "Velha"
-            self.__game_over = True
-
-        elif self.__board.won_in_a_line(row, self.__current_player) or self.__board.won_in_a_column(column, self.__current_player):
+        if self.__board.won_in_a_line(row, self.__current_player) or self.__board.won_in_a_column(column, self.__current_player):
 
             self.__result = self.__current_player
             self.__game_over = True
@@ -113,6 +108,11 @@ class TicTacToe:
             if self.__board.won_at_antidiagonal(self.__current_player):
                 self.__result = self.__current_player
                 self.__game_over = True
+
+        elif self.__board.is_board_full():
+
+            self.__result = "Velha"
+            self.__game_over = True
 
     def play(self):
         """

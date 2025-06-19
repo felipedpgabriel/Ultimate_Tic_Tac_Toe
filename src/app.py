@@ -18,18 +18,30 @@ def choose_symbol_menu() -> str:
     """
 
     print("Selecione o número do símbolo desejado:")
-    print("[0] - O")
-    print("[1] - X")
-    symbol = int(input(">>> "))
 
-    if symbol == 0:
-        return "O"
+    while True:
+        print("[0] - O")
+        print("[1] - X")
+        try:
+            symbol = int(input(">>> "))
 
-    if symbol == 1:
-        return "X"
+            if symbol not in [0, 1]:
+                raise KeyError(symbol)
 
-    print("Selecione somente as opções fornecidas abaixo\n")
-    return choose_symbol_menu()
+        except ValueError:
+            print("Selecione somente as opções fornecidas abaixo\n")
+
+        except KeyError as error:
+            print(f"Opção {error.args[0]} inválida! Selecione somente as opções fornecidas abaixo\n")
+
+        else:
+            if symbol == 0:
+                return "O"
+
+            if symbol == 1:
+                return "X"
+
+            return choose_symbol_menu()
 
 
 if __name__ == "__main__":
