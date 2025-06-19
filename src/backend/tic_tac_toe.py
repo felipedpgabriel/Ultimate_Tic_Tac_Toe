@@ -9,7 +9,6 @@ Description: Modulo para a classe TIcTacToe.
 from typing import Literal
 from .game_elements.board import Board
 
-
 class TicTacToe:
     """
     Classe para gerenciar o funcionamento de um jogo da velha tradicional.
@@ -27,6 +26,7 @@ class TicTacToe:
         self.__current_player = first_player
         self.__game_over = False
         self.__result = ""
+        self.__last_position = None
 
     def __swap_player(self):
 
@@ -57,6 +57,7 @@ class TicTacToe:
             else:
                 if not square_value:
                     self.__board.set_square(square, self.__current_player)
+                    self.__last_position = square
                     return square
 
                 print(
@@ -75,6 +76,10 @@ class TicTacToe:
 
         return self.__result
 
+    def get_last_position(self) -> int:
+
+        return self.__last_position
+
     def analyze_game(self, square: int):
         """
         Verifica o resultado a cada jogada.
@@ -85,7 +90,9 @@ class TicTacToe:
 
         row, column = self.__board.index_square(square)
 
-        # TODO: identificarq velha antes de preencher as casas.
+        # TODO: identificar velha antes de preencher as casas. Modifica o atributo __result
+        # TODO: Cuidar para não finalizar o jogo -> no Ultimate faz sentido jogar com velha -> menos no caso de velha geral
+
         if self.__board.is_board_full():
 
             self.__result = "Velha"
@@ -117,6 +124,7 @@ class TicTacToe:
             square = self.__choose_square()
             self.analyze_game(square)
             if not self.__game_over:
+                # TODO: alterar swap_player para receber jogador da vez
                 self.__swap_player()
 
         self.__board.print_board()
@@ -124,4 +132,4 @@ class TicTacToe:
         if self.__result == "Velha":
             print("Ninguém ganhou, DEU VELHA!!!")
         else:
-            print(f"Parabéns {self.__current_player}! VOCE VENCEU!!!")
+            print(f"Parabéns {self.__result}! VOCE VENCEU!!!")

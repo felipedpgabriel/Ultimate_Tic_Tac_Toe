@@ -2,7 +2,6 @@
 Módulo para a Classe Board.
 """
 
-
 class Board:
     """
     Classe para tabuleiro do jogo.
